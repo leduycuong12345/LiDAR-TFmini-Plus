@@ -1,0 +1,6 @@
+1) how to run compile main.cpp to main.exe and execute main.exe in terminal
+- First cd to main-directory by command "cd"
+- Compile main.cpp to main.exe by ( generate main.exe) :
+g++ main.cpp -o main.exe
+- Execute main.exe by command:
+.\main.exe
