@@ -2,16 +2,21 @@
 -Step 2: Cài stm32cubemx
 -Step 3: Mở stm32cubemx:
 + File → New Project hoặc New Project trên màn hình chính
-+ Trong tab MCU/MPU Selector, nhập mã chip, ví dụ STM32F103C8T6, rồi chọn đúng kết quả.
++ Trong tab MCU/MPU Selector, nhập mã chip, ví dụ [STM32F103C8T6], rồi chọn đúng kết quả.
++ Trong dự an này chỉ cần PA9(display) , PA10(read)
+	Trong mục Connectivity, chọn USART1, sau đó chọn Asynchronous.
+ 		Với STM32F103C8T6, cấu hình mặc định của USART1 là:
+			- PA9: USART1_TX
+			- PA10: USART1_RX
 + Chọn [generate_code]
 -Step 4: Nếu muốn nạp code vscode 
-+ cấu trúc project phải có file CMakeLists.txt hay Makefile =>Nếu chưa có 2 file trong project , open-project -> tab [Project Manager] -> sub-tab [Project] -> Toolchian/IDE: Cmake -> chạy[generate_code]
++ cấu trúc project phải có file CMakeLists.txt hay Makefile =>Nếu chưa có 2 file trong project , open-project  stm32cubemx -> tab [Project Manager] -> sub-tab [Project] -> Toolchian/IDE: Cmake -> chạy[generate_code]
 + Open vscode -> open folder stm32-project -> ctrl+shift+p -> "CMake:Configure" -> Success ->Done
 => Fail -> maybe missing arm-none-eabi-gcc path in environement 
 -> exe command in cmd "where.exe arm-none-eabi-gcc" -> missing ?
 -> fix by download ( https://drive.google.com/file/d/1BCL5-3o_A2u6E8eyZtC-UX5A3EXDn9aM/view?usp=sharing )
 -> extract and copy the  arm-none-eabi-gcc/path to systems_environment
--> back to vscode execute "CMake:Configure"  ->"Debug" ->Success -> exe "CMake:Build" -> Success then done.
+-> back to vscode execute "CMake:Configure"  ->"Debug" ->Success -> exe "CMake:Build" -> Success then done ( Nếu k có lỗi thì sẽ generate file /debug/project_name.elf )
 - Step 4: Cài STM32CubeProgrammer_win64
 + Open project -> Lúc này ta thấy device "Connected" nếu ok
 - Step 5: Nạp code vscode   file debug/*.elf. vào mạch stm32 bằng stm32cubeprogrammer
