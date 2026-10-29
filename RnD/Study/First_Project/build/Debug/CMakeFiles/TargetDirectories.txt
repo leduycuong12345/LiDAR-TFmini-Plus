@@ -1,0 +1,6 @@
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/First_Project/build/Debug/CMakeFiles/First_Project.dir
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/First_Project/build/Debug/CMakeFiles/edit_cache.dir
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/First_Project/build/Debug/CMakeFiles/rebuild_cache.dir
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/First_Project/build/Debug/cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/First_Project/build/Debug/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/First_Project/build/Debug/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir

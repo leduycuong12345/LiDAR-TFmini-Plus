@@ -1,0 +1,50 @@
+08:42:03 : STM32CubeProgrammer API v2.23.0 | Windows-64Bits 
+08:43:19 : File: D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\First_Project\build\Debug\First_Project.elf
+08:43:19 : Number of segments: 1
+08:43:19 : segment[0]: address= 0x8000000, size= 0x145C
+08:43:46 : ST-LINK SN  : 34FF6D064248323558401057
+08:43:46 : ST-LINK FW  : V2J49S7
+08:43:46 : Board       : --
+08:43:46 : Voltage     : 3.22V
+08:43:46 : SWD freq    : 4000 KHz
+08:43:46 : Connect mode: Normal
+08:43:46 : Reset mode  : Software reset
+08:43:46 : Device ID   : 0x410
+08:43:46 : Revision ID : Rev X
+08:43:46 : Debug in Low Power mode is not supported for this device.
+08:43:46 : UR connection mode is defined with the SWrst reset mode
+08:43:46 : UPLOADING OPTION BYTES DATA ...
+08:43:46 :   Bank          : 0x00
+08:43:46 :   Address       : 0x4002201c 
+08:43:46 :   Size          : 8 Bytes
+08:43:46 :   Bank          : 0x01
+08:43:46 :   Address       : 0x1ffff800 
+08:43:46 :   Size          : 16 Bytes
+08:43:46 : UPLOADING ...
+08:43:46 :   Size          : 1024 Bytes
+08:43:46 :   Address       : 0x8000000
+08:43:46 : Read progress:
+08:43:46 : Data read successfully
+08:43:46 : Time elapsed during the read operation is: 00:00:00.007
+08:43:47 : Opening and parsing file: First_Project.elf
+08:43:47 : Memory Programming ...
+08:43:47 :   File          : First_Project.elf
+08:43:47 :   Size          : 5.09 KB 
+08:43:47 :   Address       : 0x08000000
+08:43:47 : Erasing memory corresponding to segment 0:
+08:43:47 : Erasing internal memory sectors [0 5]
+08:43:47 : Download in Progress:
+08:43:47 : File download complete
+08:43:47 : Time elapsed during download operation: 00:00:00.334
+08:45:11 : UPLOADING ...
+08:45:11 :   Size          : 1024 Bytes
+08:45:11 :   Address       : 0x8000000
+08:45:11 : Read progress:
+08:45:11 : Data read successfully
+08:45:11 : Time elapsed during the read operation is: 00:00:00.007
+08:45:11 : UPLOADING ...
+08:45:11 :   Size          : 1024 Bytes
+08:45:11 :   Address       : 0x8000000
+08:45:11 : Read progress:
+08:45:11 : Data read successfully
+08:45:11 : Time elapsed during the read operation is: 00:00:00.007
