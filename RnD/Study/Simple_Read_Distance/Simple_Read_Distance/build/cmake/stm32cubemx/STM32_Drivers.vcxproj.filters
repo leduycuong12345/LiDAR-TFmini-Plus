@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Core\Src\system_stm32f1xx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_gpio_ex.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_uart.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rcc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rcc_ex.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_gpio.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_dma.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_cortex.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_pwr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_flash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_flash_ex.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_exti.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\IT\TN_AnhDuy\TN_AnhDuy\RnD\Study\Simple_Read_Distance\Simple_Read_Distance\cmake\stm32cubemx\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{7F0E9614-59EB-347D-B333-944233F9D4B3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

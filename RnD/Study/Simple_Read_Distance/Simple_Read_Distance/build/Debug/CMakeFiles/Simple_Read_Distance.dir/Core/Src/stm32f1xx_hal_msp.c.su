@@ -1,0 +1,3 @@
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simple_Read_Distance/Simple_Read_Distance/Core/Src/stm32f1xx_hal_msp.c:62:6:HAL_MspInit	24	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simple_Read_Distance/Simple_Read_Distance/Core/Src/stm32f1xx_hal_msp.c:89:6:HAL_UART_MspInit	56	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simple_Read_Distance/Simple_Read_Distance/Core/Src/stm32f1xx_hal_msp.c:185:6:HAL_UART_MspDeInit	16	static

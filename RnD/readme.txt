@@ -26,7 +26,11 @@
 -> STm32CubeProgrammer frequency: 100 , mode under reset, reset-mode:hardware-reset.
 -> Nếu thấy device lại  thì Full-chip-erase -> start-automatic-mode
 -> Ngắt nguồn board trả boot0-low -> kết nối lại là connect bth
-- Step 7: Final
+-Step 7: Mach [STM32F103C8T6] mỗi lần reboot xong lại disconnect k connect lại được phải boot0->HIGH cực vl
+-> Trên F103, chân debug (PA13 là SWDIO, PA14 là SWCLK) do khối AFIO điều khiển. Nếu trong CubeMX bạn để SYS → Debug = No Debug, CubeMX sẽ sinh ra dòng này trong stm32f1xx_hal_msp.c, hàm HAL_MspInit(): __HAL_AFIO_REMAP_SWJ_DISABLE(); làm khóa con mẹ nó board khó chịu vl.
+=> Mở .ioc Mở file .ioc, vào Pinout & Configuration → System Core → SYS → Debug, chọn Serial Wire (không chọn No Debug). Sau đó generate lại code.
+
+- Step 8: Final
 +STM32CubeMX :
 	Configure GPIO, clocks, and peripherals.
 	Generate the initial project code.
