@@ -7,3 +7,4 @@ D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src
 D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/stm32f1xx_it.c:157:6:DebugMon_Handler	4	static
 D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/stm32f1xx_it.c:170:6:PendSV_Handler	4	static
 D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/stm32f1xx_it.c:183:6:SysTick_Handler	8	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/stm32f1xx_it.c:204:6:USART1_IRQHandler	8	static

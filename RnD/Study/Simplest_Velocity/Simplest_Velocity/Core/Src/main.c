@@ -18,9 +18,9 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include <stdio.h>
-#include <stdint.h>
-#include <stdio.h>
+#include "stdio.h"
+#include "string.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -43,6 +43,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart2;
+UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
 
@@ -52,25 +54,104 @@ UART_HandleTypeDef huart1;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_USART2_UART_Init(void);
+static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void displayOutput(int distance_cm,double velocity_ms)
-{
-  char msg[64];
 
-  int len = snprintf(msg, sizeof(msg),
-                    "Distance: %u cm | Velocity: %.3f m/s\r\n",
-                    distance_cm, velocity_ms);
+void displayOutput_UART2()
+{
+  char msg2[] = "UART2 OK\r\n";
+
+  HAL_UART_Transmit(&huart2,
+                      (uint8_t *)msg2,
+                      sizeof(msg2) - 1,
+                      1000);
+    HAL_Delay(1000);
+}
+void displayOutput_UART1()
+{
+  char msg2[] = "UART1 OK\r\n";
 
   HAL_UART_Transmit(&huart1,
-                    (uint8_t *)msg,
-                    len,
-                    100);
+                      (uint8_t *)msg2,
+                      sizeof(msg2) - 1,
+                      1000);
+    HAL_Delay(1000);
 }
+void displayOutput_UART3()
+{
+  char msg2[] = "UART3 OK\r\n";
+
+  HAL_UART_Transmit(&huart3,
+                      (uint8_t *)msg2,
+                      sizeof(msg2) - 1,
+                      1000);
+    HAL_Delay(1000);
+}
+
+//init velocity
+static uint8_t  rx_byte;            /* single byte received by IT */
+static uint8_t  frame[9];
+static uint8_t  idx = 0;
+ 
+static volatile uint8_t  data_ready = 0;
+static volatile uint16_t lidar_dist = 0;   /* cm */
+static volatile uint16_t lidar_str  = 0;
+static volatile float    lidar_temp = 0;   /* deg C */
+
+volatile uint32_t rx_count = 0;
+volatile uint32_t err_count = 0;
+volatile uint32_t frame_ok = 0;
+volatile uint32_t frame_bad = 0;
+uint8_t last[9];
+//init velocity
+static void tfmini_feed(uint8_t b)
+{
+    /* sync on two 0x59 header bytes */
+    if (idx == 0 && b != 0x59) return;
+    if (idx == 1 && b != 0x59) { idx = 0; return; }
+ 
+    frame[idx++] = b;
+ 
+    if (idx == 9) {
+        idx = 0;
+        uint8_t sum = 0;
+        for (int i = 0; i < 8; i++) sum += frame[i];
+ 
+        if (sum == frame[8]) {
+            lidar_dist = frame[2] | (frame[3] << 8);
+            lidar_str  = frame[4] | (frame[5] << 8);
+            lidar_temp = (frame[6] | (frame[7] << 8)) / 8.0f - 256.0f;
+            data_ready = 1;
+        }
+    }
+}
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+    if (huart->Instance == USART1) {
+        rx_count++;
+        tfmini_feed(rx_byte);
+        HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
+    }
+}
+
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+    if (huart->Instance == USART1) {
+        err_count++;
+        __HAL_UART_CLEAR_OREFLAG(huart);
+        __HAL_UART_CLEAR_FEFLAG(huart);
+        __HAL_UART_CLEAR_NEFLAG(huart);
+        HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
+    }
+}
+/* ---------- USER CODE BEGIN 0 ---------- */
+
 /* USER CODE END 0 */
 
 /**
@@ -103,71 +184,48 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
+  MX_USART2_UART_Init();//testing output COM
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
+  char msg[100];
   /* USER CODE END 2 */
-
+  char m[80];
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    
     /* USER CODE END WHILE */
-    uint8_t frame[9];
-    uint8_t byte;
-    uint16_t distance_cm;
-    uint16_t previous_distance = 0;
 
-    uint32_t previous_time = 0;
-    uint8_t first_reading = 1;
-
-    double velocity_ms = 0.0f;
-
-    /* Inside while (1) */
-    if (HAL_UART_Receive(&huart1, &byte, 1, 100) == HAL_OK)
-    {
-        if (byte == 0x59)
-        {
-            frame[0] = byte;
-
-            if (HAL_UART_Receive(&huart1, &frame[1], 1, 100) == HAL_OK
-                && frame[1] == 0x59)
-            {
-                if (HAL_UART_Receive(&huart1, &frame[2], 7, 100)
-                    == HAL_OK)
-                {
-                    uint8_t checksum = 0;
-
-                    for (int i = 0; i < 8; i++)
-                        checksum += frame[i];
-
-                    if (checksum == frame[8])
-                    {
-                        distance_cm =
-                            (uint16_t)frame[2]
-                            | ((uint16_t)frame[3] << 8);
-
-                        uint32_t now = HAL_GetTick();
-
-                        if (!first_reading && now > previous_time)
-                        {
-                            double dt = (now - previous_time) / 1000.0f;
-
-                            velocity_ms =
-                                ((double)distance_cm - previous_distance)
-                                / 100.0f / dt;
-
-                            displayOutput(distance_cm,velocity_ms);
-                        }
-
-                        previous_distance = distance_cm;
-                        previous_time = now;
-                        first_reading = 0;
-                    }
-                }
-            }
-        }
-    }
     /* USER CODE BEGIN 3 */
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);//test code
+    //displayOutput_UART1();//test uẩrt1
+    displayOutput_UART2();//test uẩrt2
+    //displayOutput_UART3();//test uẩrt3
+    
+    int n = snprintf(m, sizeof(m), "rx=%lu err=%lu ok=%lu bad=%lu\r\n",
+                     rx_count, err_count, frame_ok, frame_bad);
+    HAL_UART_Transmit(&huart2, (uint8_t*)m, n, 100);
+    HAL_Delay(1000);
+
+    if (data_ready) {
+            data_ready = 0;
+            int len = snprintf(msg, sizeof(msg),
+                               "Dist: %u cm | Str: %u | Temp: %.1f C\r\n",
+                               lidar_dist, lidar_str, lidar_temp);
+            HAL_UART_Transmit(&huart2, (uint8_t *)msg, len, 100);
+        }
+    else
+    {
+      sprintf(msg,"no new data from lidar yet \r\n");
+      HAL_UART_Transmit(&huart2,
+                              (uint8_t*)msg,
+                              strlen(msg),
+                              HAL_MAX_DELAY);
+    }
+  
+    HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }
@@ -242,6 +300,72 @@ static void MX_USART1_UART_Init(void)
 }
 
 /**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
+
+}
+
+/**
+  * @brief USART3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART3_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART3_Init 0 */
+
+  /* USER CODE END USART3_Init 0 */
+
+  /* USER CODE BEGIN USART3_Init 1 */
+
+  /* USER CODE END USART3_Init 1 */
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 115200;
+  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART3_Init 2 */
+
+  /* USER CODE END USART3_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -249,11 +373,26 @@ static void MX_USART1_UART_Init(void)
 static void MX_GPIO_Init(void)
 {
   /* USER CODE BEGIN MX_GPIO_Init_1 */
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
+    /* GPIO Ports Clock Enable */
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+
+    /* Configure PC13 as Output */
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_13;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
