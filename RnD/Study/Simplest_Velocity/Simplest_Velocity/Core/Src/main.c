@@ -109,6 +109,11 @@ volatile uint32_t err_count = 0;
 volatile uint32_t frame_ok = 0;
 volatile uint32_t frame_bad = 0;
 uint8_t last[9];
+
+static uint16_t previousDistance = 0;
+static uint32_t previousTime = 0;
+static uint8_t firstRun = 1;
+
 //init velocity
 static void tfmini_feed(uint8_t b)
 {
@@ -150,13 +155,12 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
         HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
     }
 }
-float calculateVelocity(uint16_t distance)
-{
-    static uint16_t previousDistance = 0;
-    static uint32_t previousTime = 0;
-    static uint8_t firstRun = 1;
 
+double calculateVelocity(uint16_t distance)
+{
     uint32_t currentTime = HAL_GetTick();
+
+    
 
     if (firstRun)
     {
@@ -171,14 +175,27 @@ float calculateVelocity(uint16_t distance)
     if (deltaTime == 0)
         return 0.0f;
 
-    float deltaDistance =
-        (float)distance - (float)previousDistance;
+    uint16_t deltaDistance =
+        (uint16_t)distance - (uint16_t)previousDistance;
 
     // mm/ms = m/s
-    float velocity = deltaDistance / deltaTime;
+    uint16_t velocity = (uint16_t)( deltaDistance * 1000) / (uint16_t)deltaTime;
 
+    uint16_t  oldPreviousDistance=previousDistance;
     previousDistance = distance;
     previousTime = currentTime;
+
+    //logging for debuging the calculate
+    char velocityMsg[200];
+    int len =snprintf(velocityMsg, sizeof(velocityMsg),
+                               "At calculateVelocity previousDistance: %.1d , currenDistance:  %.1d , deltaDistance: %.1d / detalTime: %lu  \r\n = calculated_velocity: %.1d \r\n",
+                               oldPreviousDistance,distance,deltaDistance,deltaTime,velocity);
+
+    HAL_UART_Transmit(&huart2,
+                                  (uint8_t *)velocityMsg,
+                                  len,
+                                  1000);
+    //ending logging for debugging the calculate
 
     return velocity;
 }
@@ -221,8 +238,10 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
   char msg[100];
-  /* USER CODE END 2 */
   char m[80];
+  char velocityMsg[100];
+  /* USER CODE END 2 */
+  
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -248,11 +267,16 @@ int main(void)
                                lidar_dist, lidar_str, lidar_temp);
             HAL_UART_Transmit(&huart2, (uint8_t *)msg, len, 100);
             
-            float simple_velocity=calculateVelocity(lidar_dist);
+            uint16_t simple_velocity=calculateVelocity(lidar_dist);
     
-            snprintf(msg, sizeof(msg),
-                               "Simple velocity of static_lidar: %f cm/s (chu ky 10ms 100hz 100lan/s) \r\n",
+            int len2 =snprintf(velocityMsg, sizeof(velocityMsg),
+                               "Simple velocity of static_lidar: %.1d cm/s (chu ky 10ms 100hz 100lan/s) \r\n",
                                simple_velocity);
+
+            HAL_UART_Transmit(&huart2,
+                                  (uint8_t *)velocityMsg,
+                                  len2,
+                                  1000);
     }   
     else
     {
@@ -263,7 +287,7 @@ int main(void)
                               HAL_MAX_DELAY);
     }
   
-    HAL_Delay(10);
+    HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
