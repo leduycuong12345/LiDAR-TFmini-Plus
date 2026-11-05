@@ -150,6 +150,38 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
         HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
     }
 }
+float calculateVelocity(uint16_t distance)
+{
+    static uint16_t previousDistance = 0;
+    static uint32_t previousTime = 0;
+    static uint8_t firstRun = 1;
+
+    uint32_t currentTime = HAL_GetTick();
+
+    if (firstRun)
+    {
+        previousDistance = distance;
+        previousTime = currentTime;
+        firstRun = 0;
+        return 0.0f;
+    }
+
+    uint32_t deltaTime = currentTime - previousTime;
+
+    if (deltaTime == 0)
+        return 0.0f;
+
+    float deltaDistance =
+        (float)distance - (float)previousDistance;
+
+    // mm/ms = m/s
+    float velocity = deltaDistance / deltaTime;
+
+    previousDistance = distance;
+    previousTime = currentTime;
+
+    return velocity;
+}
 /* ---------- USER CODE BEGIN 0 ---------- */
 
 /* USER CODE END 0 */
@@ -201,7 +233,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
     HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);//test code
     //displayOutput_UART1();//test uẩrt1
-    displayOutput_UART2();//test uẩrt2
+    //displayOutput_UART2();//test uẩrt2
     //displayOutput_UART3();//test uẩrt3
     
     int n = snprintf(m, sizeof(m), "rx=%lu err=%lu ok=%lu bad=%lu\r\n",
@@ -215,7 +247,13 @@ int main(void)
                                "Dist: %u cm | Str: %u | Temp: %.1f C\r\n",
                                lidar_dist, lidar_str, lidar_temp);
             HAL_UART_Transmit(&huart2, (uint8_t *)msg, len, 100);
-        }
+            
+            float simple_velocity=calculateVelocity(lidar_dist);
+    
+            snprintf(msg, sizeof(msg),
+                               "Simple velocity of static_lidar: %f cm/s (chu ky 10ms 100hz 100lan/s) \r\n",
+                               simple_velocity);
+    }   
     else
     {
       sprintf(msg,"no new data from lidar yet \r\n");
@@ -225,7 +263,7 @@ int main(void)
                               HAL_MAX_DELAY);
     }
   
-    HAL_Delay(500);
+    HAL_Delay(10);
   }
   /* USER CODE END 3 */
 }
