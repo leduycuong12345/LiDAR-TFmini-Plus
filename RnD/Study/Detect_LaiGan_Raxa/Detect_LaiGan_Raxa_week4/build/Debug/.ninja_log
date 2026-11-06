@@ -1,0 +1,23 @@
+# ninja log v6
+86	919	8156217194839320	CMakeFiles/Detect_LaiGan_Raxa_week4.dir/startup_stm32f103xb.s.obj	4d89c5332e0897b2
+57	1232	8156217194553589	CMakeFiles/Detect_LaiGan_Raxa_week4.dir/Core/Src/sysmem.c.obj	dc529be0b2fd7d29
+192	1642	8156217195889129	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c.obj	46511c543e5ef25
+45	1544	8156217194421587	CMakeFiles/Detect_LaiGan_Raxa_week4.dir/Core/Src/stm32f1xx_hal_msp.c.obj	80d2d42bc60a4f2a
+220	1557	8156217196174917	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c.obj	2fa7f9cf137c13f1
+33	1564	8156217194297173	CMakeFiles/Detect_LaiGan_Raxa_week4.dir/Core/Src/stm32f1xx_it.c.obj	a1289980464ba67d
+260	1577	8156217196577656	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c.obj	cbfff04cda23adfe
+178	1597	8156217195757360	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c.obj	d735fb467f509e94
+135	1816	8156217195321833	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c.obj	a0f7e88f0c353a7f
+119	1600	8156217195166007	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c.obj	7c81178a2c90566
+150	1664	8156217195474175	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c.obj	222f22034fc9c3c8
+72	1611	8156217194683634	CMakeFiles/Detect_LaiGan_Raxa_week4.dir/Core/Src/syscalls.c.obj	5a1b819a09e84249
+235	1639	8156217196325406	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c.obj	5be1fb5a185371f1
+248	1666	8156217196459625	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c.obj	5205bc5a3f0ecad
+104	1644	8156217195014481	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f1xx.c.obj	220dba045c8bfd6
+32	322	8156271152429665	CMakeFiles/Detect_LaiGan_Raxa_week4.dir/Core/Src/main.c.obj	c33b1b3d08cb5773
+164	1684	8156217195621218	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c.obj	2f82e6d9ba54c36b
+206	1692	8156217196036262	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c.obj	198593b689223514
+924	1776	8156217203223104	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c.obj	abb024dc63d1143e
+324	620	8156271155347012	Detect_LaiGan_Raxa_week4.elf	50419d272d6f5566
+30	324	8156272882414334	CMakeFiles/Detect_LaiGan_Raxa_week4.dir/Core/Src/main.c.obj	c33b1b3d08cb5773
+326	609	8156272885369495	Detect_LaiGan_Raxa_week4.elf	50419d272d6f5566
