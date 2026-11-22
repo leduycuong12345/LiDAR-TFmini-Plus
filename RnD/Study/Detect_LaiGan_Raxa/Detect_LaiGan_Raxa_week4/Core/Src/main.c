@@ -18,9 +18,9 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "stdio.h"
+#include <stdio.h>
 #include "string.h"
-
+#include "lcd_i2c.c"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -42,6 +42,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+I2C_HandleTypeDef hi2c1;
+
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
@@ -56,6 +58,7 @@ static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_USART3_UART_Init(void);
+static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -187,7 +190,9 @@ double calculateVelocity_laiGan_raXa_vatTheDungyen_khongPhatHienVatThe(uint16_t 
                                   (uint8_t *)velocityMsg,
                                   len,
                                   1000);
-
+        //output lcd i2c
+        LCD_SendString("0 cm/s"); 
+        
         //reset previousTime in this case:
         previousTime = currentTime;
         return 0.0f;
@@ -204,6 +209,9 @@ double calculateVelocity_laiGan_raXa_vatTheDungyen_khongPhatHienVatThe(uint16_t 
                                   (uint8_t *)velocityMsg,
                                   len,
                                   1000);
+
+        //output lcd  i2c
+        LCD_SendString("0 cm/s"); 
 
         //reset previousTime in this case:
         previousTime = currentTime;
@@ -222,16 +230,22 @@ double calculateVelocity_laiGan_raXa_vatTheDungyen_khongPhatHienVatThe(uint16_t 
         previousDistance = distance;
         previousTime = currentTime;
 
-    //logging for debuging the calculate
+        //logging for debuging the calculate
         char velocityMsg[200];
         int len =snprintf(velocityMsg, sizeof(velocityMsg),
-                               "At calculateVelocity previousDistance: %.1d , currentDistance:  %.1d , deltaDistance: %ld   / detalTime: %lu  \r\n === calculated_velocity: -%.1d cm.s === Vật thể LẠI GẦN !!! ===\r\n",
+                               "At calculateVelocity previousDistance: %.1d , currentDistance:  %.1d , deltaDistance: %ld   / detalTime: %lu  \r\n === calculated_velocity: -%.1d cm/s === Vật thể LẠI GẦN !!! ===\r\n",
                                oldPreviousDistance,distance,deltaDistance,deltaTime,velocity);
 
         HAL_UART_Transmit(&huart2,
                                   (uint8_t *)velocityMsg,
                                   len,
                                   1000);
+
+        //output lcd i2c
+        char buffer[20];
+        snprintf(buffer, sizeof(buffer), "-%.1d", velocity);
+        LCD_SendString(buffer);
+
         return velocity;
     }
     else
@@ -253,10 +267,14 @@ double calculateVelocity_laiGan_raXa_vatTheDungyen_khongPhatHienVatThe(uint16_t 
                                   "At calculateVelocity previousDistance: %.1d , currentDistance:  %.1d , deltaDistance: %.1d / detalTime: %lu  \r\n === calculated_velocity: +%.1d cm/s === Vật thể RA XA !!! === \r\n",
                                   oldPreviousDistance,distance,deltaDistance,deltaTime,velocity);
 
-        HAL_UART_Transmit(&huart2,
-                                      (uint8_t *)velocityMsg,
+        HAL_UART_Transmit(&huart2,(uint8_t *)velocityMsg,
                                       len,
                                       1000);
+        //output lcd i2c
+        char buffer[20];
+        snprintf(buffer, sizeof(buffer), "+%.1d", velocity);
+        LCD_SendString(buffer);
+
         return velocity;
     }
     //ending logging for debugging the calculate
@@ -297,15 +315,15 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
-  MX_USART2_UART_Init();//testing output COM
+  MX_USART2_UART_Init();
   MX_USART3_UART_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
   char msg[100];
-  char m[80];
-  char velocityMsg[100];
+  //LCD_SendString("testing");//testing  
   /* USER CODE END 2 */
-  
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -333,14 +351,6 @@ int main(void)
             
             uint16_t simple_velocity=calculateVelocity_laiGan_raXa_vatTheDungyen_khongPhatHienVatThe(lidar_dist,lidar_str);
     
-           /* int len2 =snprintf(velocityMsg, sizeof(velocityMsg),
-                               "Simple velocity of static_lidar: %.1d cm/s (chu ky 10ms 100hz 100lan/s) \r\n",
-                               simple_velocity);
-
-            HAL_UART_Transmit(&huart2,
-                                  (uint8_t *)velocityMsg,
-                                  len2,
-                                  1000);*/
     }   
     else
     {
@@ -390,6 +400,40 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief I2C1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C1_Init(void)
+{
+
+  /* USER CODE BEGIN I2C1_Init 0 */
+
+  /* USER CODE END I2C1_Init 0 */
+
+  /* USER CODE BEGIN I2C1_Init 1 */
+
+  /* USER CODE END I2C1_Init 1 */
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C1_Init 2 */
+
+  /* USER CODE END I2C1_Init 2 */
+
 }
 
 /**

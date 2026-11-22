@@ -60,14 +60,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Detect_LaiGan_Raxa_week4::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Detect_LaiGan_Raxa_week4-Debug-6d7b73c1aff85e67986c.json",
+					"jsonFile" : "target-Detect_LaiGan_Raxa_week4-Debug-9fc9f6fbd9eeb42df02e.json",
 					"name" : "Detect_LaiGan_Raxa_week4",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "STM32_Drivers::@768a070a0fe75716b479",
-					"jsonFile" : "target-STM32_Drivers-Debug-56ea1b39e5ae5ca69eae.json",
+					"jsonFile" : "target-STM32_Drivers-Debug-f1078c128a19567cf58f.json",
 					"name" : "STM32_Drivers",
 					"projectIndex" : 0
 				}
