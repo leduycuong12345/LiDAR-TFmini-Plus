@@ -1,0 +1,34 @@
+10:13:28 : UR connection mode is defined with the HWrst reset mode
+10:13:28 : ST-LINK SN  : 34FF6D064248323558401057
+10:13:28 : ST-LINK FW  : V2J48S7
+10:13:28 : Board       : --
+10:13:28 : Voltage     : 3.22V
+10:13:28 : SWD freq    : 4000 KHz
+10:13:28 : Connect mode: Normal
+10:13:28 : Reset mode  : Hardware reset
+10:13:28 : Device ID   : 0x410
+10:13:28 : Revision ID : Rev X
+10:13:28 : Debug in Low Power mode is not supported for this device.
+10:13:28 : UPLOADING OPTION BYTES DATA ...
+10:13:28 :   Bank          : 0x00
+10:13:28 :   Address       : 0x4002201c 
+10:13:28 :   Size          : 8 Bytes
+10:13:28 :   Bank          : 0x01
+10:13:28 :   Address       : 0x1ffff800 
+10:13:28 :   Size          : 16 Bytes
+10:13:28 : UPLOADING ...
+10:13:28 :   Size          : 1024 Bytes
+10:13:28 :   Address       : 0x8000000
+10:13:28 : Read progress:
+10:13:28 : Data read successfully
+10:13:28 : Time elapsed during the read operation is: 00:00:00.006
+10:13:29 : Opening and parsing file: Simplest_Velocity.elf
+10:13:29 : Memory Programming ...
+10:13:29 :   File          : Simplest_Velocity.elf
+10:13:29 :   Size          : 6.270 KB (6420 B) 
+10:13:29 :   Address       : 0x08000000
+10:13:29 : Erasing memory corresponding to segment 0:
+10:13:29 : Erasing internal memory sectors [0 6]
+10:13:29 : Download in Progress:
+10:13:29 : File download complete
+10:13:29 : Time elapsed during download operation: 00:00:00.396

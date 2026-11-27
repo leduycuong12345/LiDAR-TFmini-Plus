@@ -1,0 +1,14 @@
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:66:6:displayOutput_UART2	24	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:76:6:displayOutput_UART1	24	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:86:6:displayOutput_UART3	24	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:118:13:tfmini_feed	24	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:139:6:HAL_UART_RxCpltCallback	16	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:148:6:HAL_UART_ErrorCallback	32	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:159:8:calculateVelocity	264	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:210:5:main	328	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:299:6:SystemClock_Config	72	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:336:13:MX_USART1_UART_Init	8	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:369:13:MX_USART2_UART_Init	8	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:402:13:MX_USART3_UART_Init	8	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:435:13:MX_GPIO_Init	40	static
+D:/IT/TN_AnhDuy/TN_AnhDuy/RnD/Study/Simplest_Velocity/Simplest_Velocity/Core/Src/main.c:472:6:Error_Handler	4	static
