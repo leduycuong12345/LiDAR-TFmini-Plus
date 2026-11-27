@@ -86,17 +86,6 @@ void displayOutput_UART1()
                       1000);
     HAL_Delay(1000);
 }
-void displayOutput_UART3()
-{
-  char msg2[] = "UART3 OK\r\n";
-
-  HAL_UART_Transmit(&huart3,
-                      (uint8_t *)msg2,
-                      sizeof(msg2) - 1,
-                      1000);
-    HAL_Delay(1000);
-}
-
 //init velocity
 static uint8_t  rx_byte;            /* single byte received by IT */
 static uint8_t  frame[9];
@@ -191,8 +180,11 @@ double calculateVelocity_laiGan_raXa_vatTheDungyen_khongPhatHienVatThe(uint16_t 
                                   len,
                                   1000);
         //output lcd i2c
-        LCD_SendString("0 cm/s"); 
-        
+        //LCD_SendString("0 cm/s"); 
+        char msg[40];
+        int len3 = sprintf(msg, "0 cm/s \n");
+        HAL_UART_Transmit(&huart3, (uint8_t*)msg, len3, 100);
+        //HAL_Delay(200);
         //reset previousTime in this case:
         previousTime = currentTime;
         return 0.0f;
@@ -211,8 +203,11 @@ double calculateVelocity_laiGan_raXa_vatTheDungyen_khongPhatHienVatThe(uint16_t 
                                   1000);
 
         //output lcd  i2c
-        LCD_SendString("0 cm/s"); 
-
+        //LCD_SendString("0 cm/s"); 
+        char msg[40];
+        int len3 = sprintf(msg, "0 cm/s \n");
+        HAL_UART_Transmit(&huart3, (uint8_t*)msg, len3, 100);
+        //HAL_Delay(200);
         //reset previousTime in this case:
         previousTime = currentTime;
         return 0.0f;
@@ -240,11 +235,15 @@ double calculateVelocity_laiGan_raXa_vatTheDungyen_khongPhatHienVatThe(uint16_t 
                                   (uint8_t *)velocityMsg,
                                   len,
                                   1000);
-
+            
         //output lcd i2c
-        char buffer[20];
-        snprintf(buffer, sizeof(buffer), "-%.1d", velocity);
-        LCD_SendString(buffer);
+        //char buffer[20];
+        //snprintf(buffer, sizeof(buffer), "-%.1d", velocity);
+        //LCD_SendString(buffer);
+        char msg[40];
+        int len3 = sprintf(msg, "-%.1d cm/s \n", velocity);
+        HAL_UART_Transmit(&huart3, (uint8_t*)msg, len3, 100);
+        //HAL_Delay(200);
 
         return velocity;
     }
@@ -271,9 +270,13 @@ double calculateVelocity_laiGan_raXa_vatTheDungyen_khongPhatHienVatThe(uint16_t 
                                       len,
                                       1000);
         //output lcd i2c
-        char buffer[20];
-        snprintf(buffer, sizeof(buffer), "+%.1d", velocity);
-        LCD_SendString(buffer);
+        //char buffer[20];
+        //snprintf(buffer, sizeof(buffer), "+%.1d", velocity);
+        //LCD_SendString(buffer);
+        char msg[40];
+        int len3 = sprintf(msg, "+%.1d cm/s \n", velocity);
+        HAL_UART_Transmit(&huart3, (uint8_t*)msg, len3, 100);
+        //HAL_Delay(200);
 
         return velocity;
     }
@@ -300,7 +303,7 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-
+ 
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
@@ -321,6 +324,17 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
   char msg[100];
+  LCD_Init(&hi2c1);// khoi tao lcd i2c
+  /*HAL_StatusTypeDef status_27;
+  HAL_StatusTypeDef status_3F;
+
+  status_27 = HAL_I2C_IsDeviceReady(
+      &hi2c1, 0x4E, 3, 100
+  );
+
+  status_3F = HAL_I2C_IsDeviceReady(
+      &hi2c1, 0x7E, 3, 100
+  );*/
   //LCD_SendString("testing");//testing  
   /* USER CODE END 2 */
 
@@ -332,7 +346,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);//test code
+    //HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);//test code
     //displayOutput_UART1();//test uẩrt1
     //displayOutput_UART2();//test uẩrt2
     //displayOutput_UART3();//test uẩrt3
@@ -361,7 +375,7 @@ int main(void)
                               HAL_MAX_DELAY);
     }
   
-    HAL_Delay(3000);
+    HAL_Delay(840);
   }
   /* USER CODE END 3 */
 }
